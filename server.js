@@ -29,7 +29,7 @@ server.connection({
  /**********************************************************************/
  //TODO -> Let's implement search route here
  /**********************************************************************/
-server.route({
+server.route({ // very useful lib.： Boom、Joi
     method: 'GET',
     path: '/search',
     handler: (request,reply) => {
@@ -39,13 +39,13 @@ server.route({
             reply(result); // array
         });
     },
-    config: {
-        validate: {
-            query: {
-                q: Joi.string().required().allow('').allow(null)
-            }
-        }
-    }
+    // config: {
+    //     validate: {
+    //         query: {
+    //             q: Joi.string().required().allow('').allow(null)
+    //         }
+    //     }
+    // }
 });
 
 
