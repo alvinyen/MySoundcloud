@@ -8,7 +8,7 @@ const pgp    = require('pg-promise')();
 /**********************************************************************/
 //TODO -> Don't forget to tell pgp your pg config
 /**********************************************************************/
-const db          = pgp(`postgres://Warren@localhost:5432/workshop`);
+const db          = pgp(`postgres://KJ-Yen@localhost:5432/workshop`);
 //Models
 const trackModule = require('./models/track');
 //APIs
@@ -29,7 +29,24 @@ server.connection({
  /**********************************************************************/
  //TODO -> Let's implement search route here
  /**********************************************************************/
-
+server.route({
+    method: 'GET',
+    path: '/search',
+    handler: (request,reply) => {
+        const {q} = request.query;
+        SC.searchTracks(q, (err, result) => {
+            if (err) return Boom.badImplementation(err) ;
+            reply(result); // array
+        });
+    },
+    config: {
+        validate: {
+            query: {
+                q: Joi.string().required().allow('').allow(null)
+            }
+        }
+    }
+});
 
 
 
